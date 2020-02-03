@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "./Button";
-import { action } from "@storybook/addon-actions";
-import { boolean } from "@storybook/addon-knobs";
+import {action} from "@storybook/addon-actions";
+import {boolean, select, withKnobs} from "@storybook/addon-knobs";
 
 export default {
     title: 'Button',
@@ -10,6 +10,13 @@ export default {
         component: Button,
         notes: 'some notes here'
     },
+    decorators: [withKnobs]
+};
+
+const variantOptions = {
+    none: '',
+    primary: 'primary',
+    secondary: 'secondary',
 };
 
 
@@ -27,3 +34,8 @@ Story4.story = {name: 'secondary'};
 
 export const Story5 = () => <Button onClick={action('button-click')} variant="secondary" disabled>Button</Button>;
 Story5.story = {name: 'secondary disabled'};
+
+export const Story6 = () => <Button onClick={action('button-click')}
+                                    variant={select('variant', variantOptions, '')}
+                                    disabled={boolean('disabled', false)}>Button</Button>;
+Story6.story = {name: 'Knobs addon'};
